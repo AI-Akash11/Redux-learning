@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux"
-import { decrement, increment } from "./redux/counter/counterSlice";
+import { decrement, increment, incrementByValue, resetValue, selectValue } from "./redux/counter/counterSlice";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
 
 function App() {
 
-  const value = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
+  const value = useAppSelector(selectValue)
+  const dispatch = useAppDispatch()
 
   return (
     <div className="flex min-h-[300px] items-center justify-center bg-gray-100">
@@ -20,12 +20,14 @@ function App() {
             −
           </button>
 
-          <button className="rounded-lg bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-900">
+          <button
+          onClick={()=> dispatch(resetValue())}
+           className="rounded-lg bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-900">
             Reset
           </button>
 
           <button
-            onClick={() => dispatch(increment())}
+            onClick={() => dispatch(incrementByValue(5))}
             className="rounded-lg bg-green-500 px-5 py-3 text-xl font-bold text-white transition hover:bg-green-600">
             +
           </button>
